@@ -4,8 +4,42 @@
     margin: 0;
 }
 
+body {
+    font-size: 16px;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #008ecc;
+    color: white;
+    text-decoration: none;
+    border-radius: 100px;
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #00aeff;
+}
+
+.button.secondary {
+    border: 2px solid #008ecc;
+    background-color: unset;
+    color: #008ecc;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.button.secondary:hover {
+    border-color: #00aeff;
+    color: #00aeff;
 }
