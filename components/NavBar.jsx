@@ -1,37 +1,32 @@
 import styles from "./NavBar.module.css";
-import logo from "../images/logo.jpg";
 import Image from "next/image";
+import React from "react";
 
-export default function NavBar() {
+export function NavBar({ children }) {
+    let logo = null;
+    let links = [];
+    let buttons = [];
+
+    React.Children.forEach(children, (child) => {
+        if (!React.isValidElement(child)) {
+            return;
+        }
+
+        if (child.type == NavLink) {
+            links.push(child);
+        } else if (child.type == NavLogo) {
+            logo = child;
+        } else if (child.type == NavButton) {
+            buttons.push(child);
+        }
+    });
+
     return (
         <div className={styles.nav}>
             <div className={`${styles.container} container`}>
-                <Image className={styles.logo} src={logo} alt="" />
-                <ul>
-                    <li>
-                        <a href="#">Item-1</a>
-                    </li>
-                    <li>
-                        <a href="#">Item-2</a>
-                    </li>
-                    <li>
-                        <a href="#">Item-3</a>
-                    </li>
-                    <li>
-                        <a href="#">Item-4</a>
-                    </li>
-                    <li>
-                        <a href="#">Item-5</a>
-                    </li>
-                </ul>
-                <div className={styles["button-links"]}>
-                    <a href="#" className={styles.cta}>
-                        Button
-                    </a>
-                    <a href="#" className={styles.login}>
-                        Login
-                    </a>
-                </div>
+                {logo}
+                <ul>{links}</ul>
+                <div className={styles["button-links"]}>{buttons}</div>
                 <div className={styles["mobile-menu-icon"]}>
                     <div className={styles.bar}></div>
                     <div className={styles.bar}></div>
@@ -39,5 +34,25 @@ export default function NavBar() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export function NavLink({ name, href }) {
+    return (
+        <li>
+            <a href={href}>{name}</a>
+        </li>
+    );
+}
+
+export function NavLogo({ image }) {
+    return <Image className={styles.logo} src={image} alt="" />;
+}
+
+export function NavButton({ name, href, primary = true }) {
+    return (
+        <a href={href} className={primary ? styles.cta : styles.login}>
+            {name}
+        </a>
     );
 }
