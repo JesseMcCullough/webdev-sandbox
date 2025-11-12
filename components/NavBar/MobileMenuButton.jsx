@@ -8,7 +8,7 @@ export default function MobileMenuButton({ linksUlId, navId }) {
 
     // applies toggle state
     useEffect(() => {
-        const target = document.getElementById(linksUlId);
+        const target = document.getElementById(navId);
 
         if (!target) return;
 
