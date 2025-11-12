@@ -16,8 +16,8 @@ export default function Home() {
                 <NavLink name="Item-2" href="#" />
                 <NavLink name="Item-3" href="#" />
                 <NavLink name="Item-4" href="#" />
-                <NavButton name="Sign Up" href="#" />
-                <NavButton name="Login" href="#" primary={false} />
+                <NavButton name="Login" href="#" />
+                <NavButton name="Sign Up" href="#" primary={true} />
             </NavBar>
             <Carousel />
         </>

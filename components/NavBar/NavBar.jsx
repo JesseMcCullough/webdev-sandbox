@@ -47,7 +47,7 @@ export function NavLogo({ image }) {
     return <Image className={styles.logo} src={image} alt="" />;
 }
 
-export function NavButton({ name, href, primary = true }) {
+export function NavButton({ name, href, primary = false }) {
     return (
         <a href={href} className={primary ? styles.cta : styles.login}>
             {name}
