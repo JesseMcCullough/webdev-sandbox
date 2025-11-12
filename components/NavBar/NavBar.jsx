@@ -1,6 +1,7 @@
 import styles from "./NavBar.module.css";
 import Image from "next/image";
 import React from "react";
+import MobileMenuButton from "./MobileMenuButton";
 
 export function NavBar({ children }) {
     let logo = null;
@@ -22,16 +23,13 @@ export function NavBar({ children }) {
     });
 
     return (
-        <div className={styles.nav}>
+        <div className={styles.nav} id="navbar">
+            <div className={styles.background}></div>
             <div className={`${styles.container} container`}>
                 {logo}
-                <ul>{links}</ul>
+                <ul id="nav-links">{links}</ul>
                 <div className={styles["button-links"]}>{buttons}</div>
-                <div className={styles["mobile-menu-icon"]}>
-                    <div className={styles.bar}></div>
-                    <div className={styles.bar}></div>
-                    <div className={styles.bar}></div>
-                </div>
+                <MobileMenuButton linksUlId={"nav-links"} navId="navbar" />
             </div>
         </div>
     );

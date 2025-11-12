@@ -1,5 +1,6 @@
 .nav {
-    overflow: hidden;
+    position: relative;
+    z-index: 10;
     background-color: black;
 }
 
@@ -13,12 +14,13 @@
     max-height: 50px;
     width: auto;
     margin-right: 25px;
+    flex: 0 0 auto;
 }
 
 .nav ul {
     list-style-type: none;
     display: flex;
-    width: 100%;
+    flex: 1;
 }
 
 .nav ul li {
@@ -35,6 +37,14 @@
     color: #ffffff;
 }
 
+.nav .button-links {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
 .nav .cta {
     padding: 10px 20px;
     background-color: #008ecc;
@@ -46,10 +56,6 @@
 
 .nav .cta:hover {
     background-color: #00aeff;
-}
-
-.nav .login {
-    margin-left: 25px;
 }
 
 .nav .mobile-menu-icon {
@@ -83,6 +89,15 @@
     .nav ul {
         flex-direction: column;
         order: 1;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        transition: transform 0.2s;
+        transform: scaleY(0);
+        transform-origin: top;
+        background-color: black;
+        border-radius: 0 0 20px 20px;
     }
 
     .nav ul li {
@@ -104,10 +119,14 @@
     }
 
     .nav .button-links {
-        margin: 0 auto;
+        flex: 1;
     }
 
     .nav .logo {
         margin-right: 0;
+    }
+
+    .nav ul.active {
+        transform: scaleY(1);
     }
 }

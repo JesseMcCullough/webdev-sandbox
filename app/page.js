@@ -1,4 +1,9 @@
-import { NavBar, NavLink, NavLogo, NavButton } from "../components/NavBar";
+import {
+    NavBar,
+    NavLink,
+    NavLogo,
+    NavButton,
+} from "../components/NavBar/NavBar";
 import Carousel from "../components/Carousel";
 import logo from "../images/logo.jpg";
 

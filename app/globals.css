@@ -43,3 +43,7 @@ h1 {
     border-color: #00aeff;
     color: #00aeff;
 }
+
+.no-transition {
+    transition: none !important;
+}
