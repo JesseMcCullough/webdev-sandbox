@@ -35,10 +35,39 @@ export function NavBar({ children }) {
     );
 }
 
-export function NavLink({ name, href }) {
+export function NavLink({ name, href, children }) {
+    let links = [];
+    let isDropdown = false;
+
+    React.Children.forEach(children, (child) => {
+        if (!React.isValidElement(child)) {
+            return;
+        }
+
+        if (child.type == NavLink) {
+            links.push(child);
+            console.log("pushed" + child);
+        }
+    });
+
+    isDropdown = links.length > 0;
+
+    console.log(links.length + " links found for " + name);
+
+    let liClassName = isDropdown ? styles.dropdown : "";
+
     return (
         <li>
-            <a href={href}>{name}</a>
+            <a href={href}>
+                {name}
+                {isDropdown && (
+                    <div className={styles["dropdown-icon"]}>
+                        <div className={styles.left}></div>
+                        <div className={styles.right}></div>
+                    </div>
+                )}
+            </a>
+            {isDropdown && <ul>{links}</ul>}
         </li>
     );
 }
