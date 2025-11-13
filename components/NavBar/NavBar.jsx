@@ -2,6 +2,8 @@ import styles from "./NavBar.module.css";
 import Image from "next/image";
 import React from "react";
 import MobileMenuButton from "./MobileMenuButton";
+import NavLinkRaw from "./NavLinkRaw";
+import Link from "next/link";
 
 export function NavBar({ children }) {
     let logo = null;
@@ -37,7 +39,6 @@ export function NavBar({ children }) {
 
 export function NavLink({ name, href, children }) {
     let links = [];
-    let isDropdown = false;
 
     React.Children.forEach(children, (child) => {
         if (!React.isValidElement(child)) {
@@ -46,30 +47,10 @@ export function NavLink({ name, href, children }) {
 
         if (child.type == NavLink) {
             links.push(child);
-            console.log("pushed" + child);
         }
     });
 
-    isDropdown = links.length > 0;
-
-    console.log(links.length + " links found for " + name);
-
-    let liClassName = isDropdown ? styles.dropdown : "";
-
-    return (
-        <li>
-            <a href={href}>
-                {name}
-                {isDropdown && (
-                    <div className={styles["dropdown-icon"]}>
-                        <div className={styles.left}></div>
-                        <div className={styles.right}></div>
-                    </div>
-                )}
-            </a>
-            {isDropdown && <ul>{links}</ul>}
-        </li>
-    );
+    return <NavLinkRaw name={name} href={href} links={links} />;
 }
 
 export function NavLogo({ image }) {
@@ -78,8 +59,8 @@ export function NavLogo({ image }) {
 
 export function NavButton({ name, href, primary = false }) {
     return (
-        <a href={href} className={primary ? styles.cta : styles.login}>
+        <Link href={href} className={primary ? styles.cta : styles.login}>
             {name}
-        </a>
+        </Link>
     );
 }
