@@ -95,14 +95,23 @@
     background-color: #353535;
 }
 
+.nav a.active {
+    color: #00aeff;
+}
+
+.nav a.active .dropdown-icon div {
+    background-color: #00aeff;
+}
+
 .nav a.active::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    top: calc(var(--nav-height) - 3px); /* nav height - height of underline */
     left: 0;
     height: 3px;
     width: 100%;
     background-color: #00aeff;
+    z-index: 1;
 }
 
 .nav .button-links {
@@ -111,6 +120,10 @@
     justify-content: center;
     align-items: center;
     gap: 25px;
+}
+
+.nav .button-links a {
+    width: auto;
 }
 
 .nav .cta {
@@ -174,7 +187,7 @@
         flex-wrap: wrap;
     }
 
-    .nav ul {
+    .nav .container > ul {
         flex-direction: column;
         order: 1;
         position: absolute;
@@ -191,24 +204,12 @@
     .nav ul li {
         width: 100%;
         margin-right: 0;
-        height: 50px;
-        /* border-top: 1px solid #888888;
-        border-width: 50%; */
-    }
-
-    .nav ul li:not(:first-child)::before {
-        content: "";
-        display: block;
-        height: 1px;
-        width: max(300px, 30%);
-        background-color: #484848;
-        margin: 0 auto;
-        border-radius: 5px;
+        height: auto;
     }
 
     .nav ul li a {
         width: 100%;
-        height: 100%;
+        height: var(--nav-height);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -226,7 +227,29 @@
         margin-right: 0;
     }
 
-    .nav.active ul {
+    .nav.active .container > ul {
         transform: scaleY(1);
+    }
+
+    .nav ul li ul {
+        position: relative;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        transition: none;
+        transform: none;
+    }
+
+    .nav ul li:hover ul {
+        transform: none;
+    }
+
+    .nav ul li ul li:last-child a {
+        border-radius: 0;
+    }
+
+    .nav a.active::after {
+        display: none;
     }
 }
