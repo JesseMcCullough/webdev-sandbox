@@ -32,18 +32,38 @@
 }
 
 .nav ul li ul {
-    position: absolute;
-    top: var(--nav-height);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 0fr;
     list-style-type: none;
-    transition: transform 0.2s;
-    transform: scaleY(0);
-    transform-origin: top;
+    transition: 0.2s ease-in-out;
+    position: absolute;
 }
 
-.nav ul li:hover ul {
-    transform: scaleY(1);
+.nav ul li ul div {
+    overflow: hidden;
+    width: max-content;
+}
+
+.nav ul li ul li {
+    height: 50px;
+}
+
+.nav .show-dropdown {
+    grid-template-rows: 1fr;
+}
+
+.nav .rotate {
+    transform: rotate(180deg);
+}
+
+@media screen and (min-width: 1025px) {
+    .nav ul li:hover ul {
+        grid-template-rows: 1fr;
+    }
+
+    .nav ul li:hover .dropdown-icon {
+        transform: rotate(180deg);
+    }
 }
 
 .nav ul li ul li a {
@@ -56,6 +76,7 @@
 
 .nav .dropdown-icon {
     display: flex;
+    transition: transform 0.2s;
 }
 
 .nav .dropdown-icon div {
@@ -194,11 +215,9 @@
         top: 50px;
         left: 0;
         width: 100%;
-        transition: transform 0.2s;
-        transform: scaleY(0);
-        transform-origin: top;
         background-color: black;
         border-radius: 0 0 20px 20px;
+        height: auto;
     }
 
     .nav ul li {
@@ -210,9 +229,6 @@
     .nav ul li a {
         width: 100%;
         height: var(--nav-height);
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .nav .mobile-menu-icon {
@@ -227,29 +243,15 @@
         margin-right: 0;
     }
 
-    .nav.active .container > ul {
-        transform: scaleY(1);
-    }
-
     .nav ul li ul {
         position: relative;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        list-style-type: none;
-        transition: none;
-        transform: none;
     }
 
-    .nav ul li:hover ul {
-        transform: none;
+    .nav ul li ul li a {
+        padding-left: 40px;
     }
 
-    .nav ul li ul li:last-child a {
-        border-radius: 0;
-    }
-
-    .nav a.active::after {
-        display: none;
+    .nav ul li ul div {
+        width: 100%;
     }
 }

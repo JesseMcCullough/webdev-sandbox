@@ -9,9 +9,12 @@ export default function MobileMenuButton({ linksUlId, navId }) {
     const isMobile = useIsMobile();
     const [open, setOpen] = useState(false);
 
-    // pauses transitions when mobile view renders
-    usePauseTransition(`#${linksUlId}`, isMobile);
-    usePauseTransition(`#${linksUlId} li ul`, isMobile);
+    // pauses transitions when view changes from/to mobile
+    usePauseTransition(`.${styles.nav} ul li ul`, isMobile);
+    usePauseTransition(
+        `.${styles.nav} ul li .${styles["dropdown-icon"]}`,
+        isMobile
+    );
 
     // applies toggle state
     useEffect(() => {
