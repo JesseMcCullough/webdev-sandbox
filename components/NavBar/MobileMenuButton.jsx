@@ -2,9 +2,16 @@
 
 import { useState, useEffect } from "react";
 import styles from "./NavBar.module.css";
+import useIsMobile from "@/hooks/useIsMobile";
+import usePauseTransition from "@/hooks/usePauseTransition";
 
 export default function MobileMenuButton({ linksUlId, navId }) {
+    const isMobile = useIsMobile();
     const [open, setOpen] = useState(false);
+
+    // pauses transitions when mobile view renders
+    usePauseTransition(`#${linksUlId}`, isMobile);
+    usePauseTransition(`#${linksUlId} li ul`, isMobile);
 
     // applies toggle state
     useEffect(() => {
@@ -15,50 +22,27 @@ export default function MobileMenuButton({ linksUlId, navId }) {
         target.classList.toggle(styles.active, open);
     }, [open]);
 
-    // close menu when clicking outside
+    // close menu when clicking outside or clicking a link
     useEffect(() => {
-        function handleClickOutside(e) {
+        function handleClick(e) {
             const nav = document.getElementById(navId);
-            if (nav && nav.contains(e.target)) return;
+            const target = e.target;
+            const isClickLink = target.closest("a");
+            const isClickInsideNav = nav && nav.contains(target);
+
+            if (isClickInsideNav && !isClickLink) return;
 
             setOpen(false);
         }
 
         if (open) {
-            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("click", handleClick);
         } else {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("click", handleClick);
         }
 
-        return () =>
-            document.removeEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("click", handleClick);
     }, [open]);
-
-    // handle resize to prevent transition issues
-    useEffect(() => {
-        const target = document.getElementById(linksUlId);
-
-        if (!target) return;
-
-        let resizeTimer;
-
-        const handleResize = () => {
-            target.classList.add("no-transition");
-
-            clearTimeout(resizeTimer);
-
-            resizeTimer = setTimeout(() => {
-                target.classList.remove("no-transition");
-            }, 200);
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            clearTimeout(resizeTimer);
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
 
     return (
         <div
