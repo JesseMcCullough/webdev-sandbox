@@ -11,7 +11,7 @@ export function NavBar({ children }) {
         <div className={styles.nav} id="navbar">
             <div className={`${styles.container} container`}>
                 {children}
-                <MobileMenuButton linksUlId={"nav-links"} navId="navbar" />
+                <MobileMenuButton navId="navbar" />
             </div>
         </div>
     );
@@ -24,14 +24,6 @@ export function NavLink({ name, href }) {
                 <span className={styles["link-name"]}>{name}</span>
             </Link>
         </ActiveNavLink>
-    );
-}
-
-export function NavLinks({ children }) {
-    return (
-        <ul id="nav-links">
-            <div className={styles["nav-links-wrapper"]}>{children}</div>
-        </ul>
     );
 }
 
@@ -53,7 +45,7 @@ export function NavButtons({ children }) {
 
 export function NavDropdownMenu({ name, children }) {
     return (
-        <DropdownToggle>
+        <DropdownToggle name={name}>
             <div className={styles["dropdown-name-container"]}>
                 <span className={styles["dropdown-name"]}>{name}</span>
                 <div className={styles["dropdown-icon"]}>
@@ -68,3 +60,5 @@ export function NavDropdownMenu({ name, children }) {
         </DropdownToggle>
     );
 }
+
+export { default as NavLinks } from "./NavLinks";

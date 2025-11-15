@@ -2,19 +2,9 @@
 
 import { useState, useEffect } from "react";
 import styles from "./NavBar.module.css";
-import useIsMobile from "@/hooks/useIsMobile";
-import usePauseTransition from "@/hooks/usePauseTransition";
 
-export default function MobileMenuButton({ linksUlId, navId }) {
-    const isMobile = useIsMobile();
+export default function MobileMenuButton({ navId }) {
     const [open, setOpen] = useState(false);
-
-    // pauses transitions when view changes from/to mobile
-    usePauseTransition(`.${styles.nav} ul li ul`, isMobile);
-    usePauseTransition(
-        `.${styles.nav} ul li .${styles["dropdown-icon"]}`,
-        isMobile
-    );
 
     // applies toggle state
     useEffect(() => {
