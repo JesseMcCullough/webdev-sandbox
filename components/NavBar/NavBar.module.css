@@ -38,11 +38,16 @@
     list-style-type: none;
     transition: 0.2s ease-in-out;
     position: absolute;
+    width: max-content;
+    min-width: 100%;
+    background-color: #000;
+    border-radius: 0 0 10px 10px;
 }
 
 .nav ul li ul div {
     overflow: hidden;
     width: max-content;
+    min-width: 100%;
 }
 
 .nav ul li ul li {
@@ -78,11 +83,12 @@
 .nav .dropdown-icon {
     display: flex;
     transition: transform 0.2s;
+    align-items: center;
 }
 
 .nav .dropdown-icon div {
-    width: 8px;
-    height: 1px;
+    width: 10px;
+    height: 2px;
     background-color: #d7d7d7;
 }
 
@@ -91,17 +97,17 @@
 }
 
 .nav .dropdown-icon .left {
-    transform: translateX(1px) rotate(45deg);
+    transform: translateX(2px) rotate(45deg);
 }
 
 .nav .dropdown-icon .right {
-    transform: translateX(-1px) rotate(-45deg);
+    transform: translateX(-2px) rotate(-45deg);
 }
 
-.nav a {
+.nav a,
+.nav .dropdown-name-container {
     text-decoration: none;
     color: #d7d7d7;
-    background-color: black;
     transition: color 0.2s, background-color 0.2s;
     height: 100%;
     width: 100%;
@@ -110,14 +116,16 @@
     padding: 0 20px;
     white-space: nowrap;
     gap: 4px;
+    cursor: pointer;
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav .dropdown-name-container:hover {
     color: #ffffff;
     background-color: #353535;
 }
 
-.nav a.active {
+.nav li.active a {
     color: #00aeff;
 }
 
@@ -244,7 +252,8 @@
         grid-template-rows: 1fr;
     }
 
-    .nav ul li a {
+    .nav ul li a,
+    .nav .dropdown-name-container {
         width: 100%;
         height: var(--nav-height);
     }
@@ -263,6 +272,7 @@
 
     .nav ul li ul {
         position: relative;
+        background-color: #1f1f1f;
     }
 
     .nav ul li ul li a {
@@ -278,12 +288,9 @@
         fill: #00aeff;
         width: auto;
         height: 100%;
-        position: relative;
-        left: 10px;
     }
 
-    .nav .link-name {
-        flex: 1;
+    .nav .dropdown-name {
         height: 100%;
         display: flex;
         align-items: center;
