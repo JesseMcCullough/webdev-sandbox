@@ -26,10 +26,13 @@ export function NavBar({ children }) {
 
     return (
         <div className={styles.nav} id="navbar">
-            <div className={styles.background}></div>
             <div className={`${styles.container} container`}>
                 {logo}
-                <ul id="nav-links">{links}</ul>
+
+                <ul id="nav-links">
+                    <div className={styles["nav-links-wrapper"]}>{links}</div>
+                </ul>
+
                 <div className={styles["button-links"]}>{buttons}</div>
                 <MobileMenuButton linksUlId={"nav-links"} navId="navbar" />
             </div>

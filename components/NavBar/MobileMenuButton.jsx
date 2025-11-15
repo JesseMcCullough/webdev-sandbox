@@ -25,15 +25,17 @@ export default function MobileMenuButton({ linksUlId, navId }) {
         target.classList.toggle(styles.active, open);
     }, [open]);
 
-    // close menu when clicking outside or clicking a link
+    // close menu when clicking outside or clicking a link but not a dropdown
     useEffect(() => {
         function handleClick(e) {
             const nav = document.getElementById(navId);
             const target = e.target;
-            const isClickLink = target.closest("a");
+            const isClickLink = target.closest("a") !== null;
             const isClickInsideNav = nav && nav.contains(target);
+            const isClickDropdown =
+                target.closest(`.${styles["dropdown-icon"]}`) !== null;
 
-            if (isClickInsideNav && !isClickLink) return;
+            if (isClickInsideNav && (isClickDropdown || !isClickLink)) return;
 
             setOpen(false);
         }

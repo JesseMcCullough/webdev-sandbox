@@ -18,7 +18,8 @@
     flex: 0 0 auto;
 }
 
-.nav .container > ul {
+.nav .container > ul,
+.nav .nav-links-wrapper {
     list-style-type: none;
     display: flex;
     flex: 1;
@@ -226,6 +227,23 @@
         height: auto;
     }
 
+    .nav .container > ul {
+        display: grid;
+        grid-template-rows: 0fr;
+        list-style-type: none;
+        transition: 0.2s ease-in-out;
+        position: absolute;
+    }
+
+    .nav .nav-links-wrapper {
+        overflow: hidden;
+        display: block;
+    }
+
+    .nav.active .container > ul {
+        grid-template-rows: 1fr;
+    }
+
     .nav ul li a {
         width: 100%;
         height: var(--nav-height);
@@ -253,5 +271,25 @@
 
     .nav ul li ul div {
         width: 100%;
+    }
+
+    .nav ul .dropdown-icon {
+        justify-content: end;
+        fill: #00aeff;
+        width: auto;
+        height: 100%;
+        position: relative;
+        left: 10px;
+    }
+
+    .nav .link-name {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav a.active::after {
+        display: none;
     }
 }

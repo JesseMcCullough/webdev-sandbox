@@ -17,8 +17,13 @@ export default function NavLinkRaw({ name, href = "", links = [] }) {
         closeDropdowns();
     }, [isMobile]);
 
-    function handleShowDropdown(e, isDropdown) {
-        if (!isMobile || !isDropdown) return;
+    function handleShowDropdown(e) {
+        if (!isMobile) return;
+
+        const isClickDropdownIcon =
+            e.target.closest(`.${styles["dropdown-icon"]}`) !== null;
+
+        if (!isClickDropdownIcon) return;
 
         e.preventDefault();
 
@@ -49,16 +54,22 @@ export default function NavLinkRaw({ name, href = "", links = [] }) {
     return (
         <li>
             <Link
-                href={isDropdown && isMobile ? "" : href}
+                href={href}
                 className={isActive ? styles.active : ""}
-                onClick={(e) => handleShowDropdown(e, isDropdown)}
+                onClick={(e) => handleShowDropdown(e)}
             >
-                {name}
+                <span className={styles["link-name"]}>{name}</span>
                 {isDropdown && (
-                    <div className={styles["dropdown-icon"]}>
-                        <div className={styles.left}></div>
-                        <div className={styles.right}></div>
-                    </div>
+                    <svg
+                        className={styles["dropdown-icon"]}
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        fill="#e3e3e3"
+                    >
+                        <path d="M480-345 240-585l56-56 184 183 184-183 56 56-240 240Z" />
+                    </svg>
                 )}
             </Link>
             {isDropdown && (
