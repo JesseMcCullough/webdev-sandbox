@@ -2,55 +2,29 @@ import styles from "./NavBar.module.css";
 import Image from "next/image";
 import React from "react";
 import MobileMenuButton from "./MobileMenuButton";
-import NavLinkRaw from "./NavLinkRaw";
+import DropdownToggle from "./DropdownToggle";
+import ActiveNavLink from "./ActiveNavLink";
 import Link from "next/link";
 
 export function NavBar({ children }) {
-    let logo = null;
-    let links = [];
-    let buttons = [];
-
-    React.Children.forEach(children, (child) => {
-        if (!React.isValidElement(child)) {
-            return;
-        }
-
-        if (child.type == NavLink) {
-            links.push(child);
-        } else if (child.type == NavLogo) {
-            logo = child;
-        } else if (child.type == NavButton) {
-            buttons.push(child);
-        }
-    });
-
     return (
         <div className={styles.nav} id="navbar">
-            <div className={styles.background}></div>
             <div className={`${styles.container} container`}>
-                {logo}
-                <ul id="nav-links">{links}</ul>
-                <div className={styles["button-links"]}>{buttons}</div>
-                <MobileMenuButton linksUlId={"nav-links"} navId="navbar" />
+                {children}
+                <MobileMenuButton navId="navbar" />
             </div>
         </div>
     );
 }
 
-export function NavLink({ name, href, children }) {
-    let links = [];
-
-    React.Children.forEach(children, (child) => {
-        if (!React.isValidElement(child)) {
-            return;
-        }
-
-        if (child.type == NavLink) {
-            links.push(child);
-        }
-    });
-
-    return <NavLinkRaw name={name} href={href} links={links} />;
+export function NavLink({ name, href }) {
+    return (
+        <ActiveNavLink href={href}>
+            <Link href={href}>
+                <span className={styles["link-name"]}>{name}</span>
+            </Link>
+        </ActiveNavLink>
+    );
 }
 
 export function NavLogo({ image }) {
@@ -64,3 +38,27 @@ export function NavButton({ name, href, primary = false }) {
         </Link>
     );
 }
+
+export function NavButtons({ children }) {
+    return <div className={styles["button-links"]}>{children}</div>;
+}
+
+export function NavDropdownMenu({ name, children }) {
+    return (
+        <DropdownToggle name={name}>
+            <div className={styles["dropdown-name-container"]}>
+                <span className={styles["dropdown-name"]}>{name}</span>
+                <div className={styles["dropdown-icon"]}>
+                    <div className={styles.left}></div>
+                    <div className={styles.right}></div>
+                </div>
+            </div>
+
+            <ul>
+                <div>{children}</div>
+            </ul>
+        </DropdownToggle>
+    );
+}
+
+export { default as NavLinks } from "./NavLinks";

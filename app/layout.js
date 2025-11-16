@@ -4,7 +4,10 @@ import {
     NavBar,
     NavLogo,
     NavLink,
+    NavLinks,
     NavButton,
+    NavButtons,
+    NavDropdownMenu,
 } from "../components/NavBar/NavBar";
 import logo from "../images/logo.jpg";
 
@@ -24,23 +27,28 @@ export default function RootLayout({ children }) {
             <body className={roboto.className}>
                 <NavBar>
                     <NavLogo image={logo} />
-                    <NavLink name="Home" href="/">
-                        <NavLink name="SubItem-1" href="#" />
-                        <NavLink name="SubItem-2" href="#" />
-                        <NavLink name="SubItem-3" href="#" />
-                        <NavLink name="SubItem-4" href="#" />
-                        <NavLink name="SubItem-5 Hello Hello" href="#" />
-                    </NavLink>
-                    <NavLink name="Item-2" href="#" />
-                    <NavLink name="Item-3" href="#">
-                        <NavLink name="SubItem-1" href="#" />
-                        <NavLink name="SubItem-2" href="#" />
-                        <NavLink name="SubItem-3" href="#" />
-                    </NavLink>
-                    <NavLink name="Item-4" href="#" />
-                    <NavLink name="Test" href="/test" />
-                    <NavButton name="Login" href="#" />
-                    <NavButton name="Sign Up" href="#" primary={true} />
+                    <NavLinks>
+                        <NavLink name="Home" href="/" />
+                        <NavDropdownMenu name="Projects">
+                            <NavLink name="Project A" href="#" />
+                            <NavLink name="Project B" href="#" />
+                            <NavLink name="Project C" href="#" />
+                        </NavDropdownMenu>
+                        <NavDropdownMenu name="About Us">
+                            <NavLink
+                                name="Our Mission Our Mission Our Mission"
+                                href="#"
+                            />
+                            <NavLink name="Our Team" href="#" />
+                            <NavLink name="Our Values" href="#" />
+                        </NavDropdownMenu>
+                        <NavLink name="Item-4" href="#" />
+                        <NavLink name="Test" href="/test" />
+                    </NavLinks>
+                    <NavButtons>
+                        <NavButton name="Login" href="#" />
+                        <NavButton name="Sign Up" href="#" primary={true} />
+                    </NavButtons>
                 </NavBar>
                 {children}
             </body>

@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-export default function useIsMobile(breakpoint = 1024) {
-    const [isMobile, setIsMobile] = useState(false);
+export default function useIsLayoutMobile(breakpoint = 1024) {
+    const [isLayoutMobile, setIsLayoutMobile] = useState(false);
 
     useEffect(() => {
         const media = window.matchMedia(`(max-width: ${breakpoint}px)`);
 
-        const handleChange = (e) => setIsMobile(e.matches);
+        const handleChange = (e) => setIsLayoutMobile(e.matches);
 
         handleChange(media);
 
@@ -17,5 +17,5 @@ export default function useIsMobile(breakpoint = 1024) {
         return () => media.removeEventListener("change", handleChange);
     }, [breakpoint]);
 
-    return isMobile;
+    return isLayoutMobile;
 }
