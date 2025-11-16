@@ -191,6 +191,17 @@
     flex-direction: column;
     gap: 4px;
     cursor: pointer;
+    position: relative;
+    justify-content: center;
+    height: 100%;
+    z-index: 1;
+}
+
+.nav .mobile-menu-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0 -20px 0 -10px; /* -20px right is nav container padding */
+    z-index: -1;
 }
 
 .nav .mobile-menu-icon:hover .bar {
@@ -218,9 +229,9 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .nav {
+    /* .nav {
         height: 100%;
-    }
+    } */
 
     .nav .container {
         flex-wrap: wrap;
