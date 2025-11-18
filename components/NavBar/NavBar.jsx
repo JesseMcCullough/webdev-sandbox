@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export function NavBar({ children }) {
     return (
-        <div className={styles.nav} id="navbar">
+        <div className={`${styles.nav} navbar-theme`} id="navbar">
             <div className={`${styles.container} container`}>
                 {children}
                 <MobileMenuButton navId="navbar" />
