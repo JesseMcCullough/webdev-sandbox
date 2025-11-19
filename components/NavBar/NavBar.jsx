@@ -27,6 +27,8 @@ export function NavLink({ name, href }) {
     );
 }
 
+export { default as NavLinks } from "./NavLinks";
+
 export function NavLogo({ image }) {
     return <Image className={styles.logo} src={image} alt="" />;
 }
@@ -61,4 +63,6 @@ export function NavDropdownMenu({ name, children }) {
     );
 }
 
-export { default as NavLinks } from "./NavLinks";
+export function NavActions({ children }) {
+    return <div className={styles.actions}>{children}</div>;
+}

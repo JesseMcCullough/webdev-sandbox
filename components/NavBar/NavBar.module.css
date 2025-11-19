@@ -230,29 +230,6 @@
     width: auto;
 }
 
-.nav .cta {
-    padding: var(--_nav-button-primary-padding);
-    background-color: var(--_nav-button-primary-background-color);
-    color: var(--_nav-button-primary-color);
-    text-decoration: none;
-    border-radius: var(--_nav-button-primary-border-radius);
-    transition: color 0.2s, background-color 0.2s;
-}
-
-/* redefine cta & login to primary & secondary buttons and make room for links */
-.nav .login {
-    padding: 0;
-}
-
-.nav .login:hover {
-    background-color: unset;
-}
-
-.nav .cta:hover {
-    background-color: var(--_nav-button-primary-hover-background-color);
-    color: var(--_nav-button-primary-hover-color);
-}
-
 .nav .mobile-menu-icon {
     display: none;
     flex-direction: column;
@@ -293,6 +270,45 @@
 
 .nav.active .mobile-menu-icon .bar:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
+}
+
+/* add height 100 to actions, height auto to cta */
+.nav .actions {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--_nav-buttons-gap);
+    height: 100%;
+}
+
+.nav .actions a {
+    background-color: unset;
+    padding: 0;
+}
+
+.nav .actions .cta {
+    padding: var(--_nav-button-primary-padding);
+    background-color: var(--_nav-button-primary-background-color);
+    color: var(--_nav-button-primary-color);
+    text-decoration: none;
+    border-radius: var(--_nav-button-primary-border-radius);
+    transition: color 0.2s, background-color 0.2s;
+    height: auto;
+}
+
+/* redefine cta & login to primary & secondary buttons and make room for links */
+.nav .login {
+    padding: 0;
+}
+
+.nav .login:hover {
+    background-color: unset;
+}
+
+.nav .actions .cta:hover {
+    background-color: var(--_nav-button-primary-hover-background-color);
+    color: var(--_nav-button-primary-hover-color);
 }
 
 @media screen and (max-width: 1024px) {
