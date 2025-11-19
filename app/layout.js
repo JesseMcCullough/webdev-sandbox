@@ -6,9 +6,10 @@ import {
     NavLink,
     NavLinks,
     NavButton,
-    NavButtons,
     NavDropdownMenu,
+    NavActions,
 } from "../components/NavBar/NavBar";
+import Link from "next/link";
 import logo from "../images/logo.jpg";
 
 const roboto = Roboto({
@@ -45,10 +46,10 @@ export default function RootLayout({ children }) {
                         <NavLink name="Item-4" href="#" />
                         <NavLink name="Test" href="/test" />
                     </NavLinks>
-                    <NavButtons>
-                        <NavButton name="Login" href="#" />
+                    <NavActions>
+                        <Link href="#">Login</Link>
                         <NavButton name="Sign Up" href="#" primary={true} />
-                    </NavButtons>
+                    </NavActions>
                 </NavBar>
                 {children}
             </body>
