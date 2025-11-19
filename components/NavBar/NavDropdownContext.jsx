@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import useIsTouchDevice from "@/hooks/useIsTouchDevice";
 import useIsLayoutMobile from "@/hooks/useIsLayoutMobile";
 
@@ -10,6 +10,13 @@ export function NavDropdownProvider({ children }) {
     const [openDropdown, setOpenDropdown] = useState(null);
     const isTouchDevice = useIsTouchDevice();
     const isLayoutMobile = useIsLayoutMobile();
+
+    // close dropdown menu when switching layout from mobile to desktop
+    useEffect(() => {
+        if (isLayoutMobile) return;
+
+        setOpenDropdown(null);
+    }, [isLayoutMobile]);
 
     const toggleDropdown = (name) => {
         if (!isTouchDevice && !isLayoutMobile) return;
