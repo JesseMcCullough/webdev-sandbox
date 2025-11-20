@@ -5,10 +5,12 @@ import MobileMenuButton from "./MobileMenuButton";
 import DropdownToggle from "./DropdownToggle";
 import ActiveNavLink from "./ActiveNavLink";
 import Link from "next/link";
+import themeToCssVars from "@/utils/themeToCssVars";
+import defaultTheme from "./navbar.config.json";
 
-export function NavBar({ children }) {
+export function NavBar({ theme = defaultTheme, children }) {
     return (
-        <div className={`${styles.nav} navbar-theme`} id="navbar">
+        <div className={styles.nav} id="navbar" style={themeToCssVars(theme)}>
             <div className={`${styles.container} container`}>
                 {children}
                 <MobileMenuButton navId="navbar" />

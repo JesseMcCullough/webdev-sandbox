@@ -1,96 +1,21 @@
-:global(.navbar-theme) {
-    /* to-do: add mobile nav height, maybe rethink mobile values */
-    --_nav-height: var(--nav-height, 50px);
-    --_nav-background-color: var(--nav-background-color, #000);
-    --_nav-logo-padding: var(--nav-logo-padding, 0px);
-    --_nav-gap: var(--nav-gap, 25px);
-    --_nav-dropdown-menu-background-color: var(
-        --nav-dropdown-menu-background-color,
-        var(--_nav-background-color)
-    );
-    --_nav-dropdown-menu-border-radius: var(
-        --nav-dropdown-menu-border-radius,
-        0 0 10px 10px
-    );
-    --_nav-dropdown-menu-link-height: var(
-        --nav-dropdown-menu-link-height,
-        min(var(--_nav-height), 50px)
-    );
-    --_nav-link-color: var(--nav-link-color, #d7d7d7);
-    --_nav-link-hover-color: var(--nav-link-hover-color, #fff);
-    --_nav-link-hover-background-color: var(
-        --nav-link-hover-background-color,
-        #353535
-    );
-    --_nav-link-active-color: var(--nav-link-active-color, #00aeff);
-    --_nav-link-active-underline-height: var(
-        --nav-link-active-underline-height,
-        3px
-    );
-    --_nav-link-padding: var(--nav-link-padding, 0 20px);
-    --_nav-dropdown-menu-icon-color: var(
-        --nav-dropdown-menu-icon-color,
-        var(--_nav-link-color)
-    );
-    --_nav-dropdown-menu-icon-hover-color: var(
-        --nav-dropdown-menu-icon-hover-color,
-        var(--_nav-link-hover-color)
-    );
-    --_nav-dropdown-menu-mobile-background-color: var(
-        --nav-dropdown-menu-mobile-background-color,
-        #1d1d1d
-    );
-    --_nav-buttons-gap: var(--nav-buttons-gap, 25px);
-    --_nav-button-primary-padding: var(--nav-button-primary-padding, 10px 20px);
-    --_nav-button-primary-background-color: var(
-        --nav-button-primary-background-color,
-        #0094d8
-    );
-    --_nav-button-primary-color: var(--nav-button-primary-color, #fff);
-    --_nav-button-primary-border-radius: var(
-        --nav-button-primary-border-radius,
-        100px
-    );
-    --_nav-button-primary-hover-background-color: var(
-        --nav-button-primary-hover-background-color,
-        #00aeff
-    );
-    --_nav-button-primary-hover-color: var(
-        --nav-button-primary-hover-color,
-        #fff
-    );
-    --_nav-mobile-menu-icon-background-color: var(
-        --nav-mobile-menu-icon-background-color,
-        #d7d7d7
-    );
-    --_nav-mobile-menu-icon-hover-background-color: var(
-        --nav-mobile-menu-icon-hover-background-color,
-        #fff
-    );
-    --_nav-mobile-menu-border-radius: var(
-        --nav-mobile-menu-border-radius,
-        0 0 20px 20px
-    );
-}
-
 .nav {
     position: relative;
-    background-color: var(--_nav-background-color);
-    height: var(--_nav-height);
+    background-color: var(--background-color);
+    height: var(--height);
 }
 
 .nav .container {
     display: flex;
     align-items: center;
     height: 100%;
-    gap: var(--_nav-gap);
+    gap: var(--gap);
 }
 
 .nav .logo {
     height: 100%;
     width: auto;
     flex: 0 0 auto;
-    padding: var(--_nav-logo-padding);
+    padding: var(--logo-padding);
 }
 
 .nav .container > ul,
@@ -113,8 +38,8 @@
     position: absolute;
     width: max-content;
     min-width: 100%;
-    background-color: var(--_nav-dropdown-menu-background-color);
-    border-radius: var(--_nav-dropdown-menu-border-radius);
+    background-color: var(--dropdown-menu-background-color);
+    border-radius: var(--dropdown-menu-border-radius);
 }
 
 .nav ul li ul div {
@@ -124,7 +49,7 @@
 }
 
 .nav ul li ul li {
-    height: var(--_nav-dropdown-menu-link-height);
+    height: var(--dropdown-menu-link-height);
 }
 
 .nav .dropdown {
@@ -152,12 +77,12 @@
 .nav a:hover,
 .nav .dropdown-name-container:hover,
 .nav .dropdown.active .dropdown-name-container {
-    color: var(--_nav-link-hover-color);
-    background-color: var(--_nav-link-hover-background-color);
+    color: var(--link-hover-color);
+    background-color: var(--link-hover-background-color);
 }
 
 .nav ul li ul li:last-child a {
-    border-radius: var(--_nav-dropdown-menu-border-radius);
+    border-radius: var(--dropdown-menu-border-radius);
 }
 
 .nav .dropdown-icon {
@@ -169,11 +94,11 @@
 .nav .dropdown-icon div {
     width: 10px;
     height: 2px;
-    background-color: var(--_nav-dropdown-menu-icon-color);
+    background-color: var(--dropdown-menu-icon-color);
 }
 
 .nav li:hover .dropdown-icon div {
-    background-color: var(--_nav-dropdown-menu-icon-hover-color);
+    background-color: var(--dropdown-menu-icon-hover-color);
 }
 
 .nav .dropdown-icon .left {
@@ -187,20 +112,20 @@
 .nav a,
 .nav .dropdown-name-container {
     text-decoration: none;
-    color: var(--_nav-link-color);
+    color: var(--link-color);
     transition: color 0.2s, background-color 0.2s;
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: var(--_nav-link-padding);
+    padding: var(--link-padding);
     white-space: nowrap;
     gap: 4px;
     cursor: pointer;
 }
 
 .nav li.active > a {
-    color: var(--_nav-link-active-color);
+    color: var(--link-active-color);
 }
 
 .nav a.active .dropdown-icon div {
@@ -210,11 +135,11 @@
 .nav li.active a::after {
     content: "";
     position: absolute;
-    top: calc(var(--_nav-height) - var(--_nav-link-active-underline-height));
+    top: calc(var(--height) - var(--link-active-underline-height));
     left: 0;
-    height: var(--_nav-link-active-underline-height);
+    height: var(--link-active-underline-height);
     width: 100%;
-    background-color: var(--_nav-link-active-color);
+    background-color: var(--link-active-color);
     z-index: 1;
 }
 
@@ -223,7 +148,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--_nav-buttons-gap);
+    gap: var(--button-gap);
 }
 
 .nav .button-links a {
@@ -231,12 +156,13 @@
 }
 
 .nav .cta {
-    padding: var(--_nav-button-primary-padding);
-    background-color: var(--_nav-button-primary-background-color);
-    color: var(--_nav-button-primary-color);
+    padding: var(--button-primary-padding);
+    background-color: var(--button-primary-background-color);
+    color: var(--button-primary-color);
     text-decoration: none;
-    border-radius: var(--_nav-button-primary-border-radius);
+    border-radius: var(--button-primary-border-radius);
     transition: color 0.2s, background-color 0.2s;
+    height: auto;
 }
 
 /* redefine cta & login to primary & secondary buttons and make room for links */
@@ -249,8 +175,8 @@
 }
 
 .nav .cta:hover {
-    background-color: var(--_nav-button-primary-hover-background-color);
-    color: var(--_nav-button-primary-hover-color);
+    background-color: var(--button-primary-hover-background-color);
+    color: var(--button-primary-hover-color);
 }
 
 .nav .mobile-menu-icon {
@@ -272,13 +198,13 @@
 }
 
 .nav .mobile-menu-icon:hover .bar {
-    background-color: var(--_nav-mobile-menu-icon-hover-background-color);
+    background-color: var(--mobile-menu-icon-hover-background-color);
 }
 
 .nav .mobile-menu-icon .bar {
     width: 20px;
     height: 2px;
-    background-color: var(--_nav-mobile-menu-icon-background-color);
+    background-color: var(--mobile-menu-icon-background-color);
     border-radius: 10px;
     transition: all 0.2s;
 }
@@ -304,11 +230,11 @@
         flex-direction: column;
         order: 1;
         position: absolute;
-        top: var(--_nav-height);
+        top: var(--height);
         left: 0;
         width: 100%;
-        background-color: var(--_nav-background-color);
-        border-radius: var(--_nav-mobile-menu-border-radius);
+        background-color: var(--background-color);
+        border-radius: var(--mobile-menu-border-radius);
         height: auto;
     }
 
@@ -338,7 +264,7 @@
     .nav ul li a,
     .nav .dropdown-name-container {
         width: 100%;
-        height: var(--_nav-dropdown-menu-link-height);
+        height: var(--dropdown-menu-link-height);
     }
 
     .nav .mobile-menu-icon {
@@ -355,7 +281,7 @@
 
     .nav ul li ul {
         position: relative;
-        background-color: var(--_nav-dropdown-menu-mobile-background-color);
+        background-color: var(--dropdown-menu-mobile-background-color);
     }
 
     .nav ul li ul li a {
@@ -385,6 +311,6 @@
 
     .nav ul li:last-child a,
     .nav ul li:last-child .dropdown-name-container {
-        border-radius: var(--_nav-mobile-menu-border-radius);
+        border-radius: var(--mobile-menu-border-radius);
     }
 }
