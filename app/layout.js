@@ -10,6 +10,7 @@ import {
     NavDropdownMenu,
 } from "../components/NavBar/NavBar";
 import logo from "../images/logo.jpg";
+import theme from "@/components/NavBar/navbar.config.json";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={roboto.className}>
-                <NavBar>
+                <NavBar theme={theme}>
                     <NavLogo image={logo} />
                     <NavLinks>
                         <NavLink name="Home" href="/" />

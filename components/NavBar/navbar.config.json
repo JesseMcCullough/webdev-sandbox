@@ -1,0 +1,54 @@
+{
+    "height": "50px",
+    "backgroundColor": "#000",
+    "logoPadding": "0px",
+    "gap": "25px",
+    "dropdownMenu": {
+        "backgroundColor": "#000",
+        "borderRadius": "0 0 10px 10px",
+        "linkHeight": "50px",
+        "icon": {
+            "color": "#d7d7d7",
+            "hover": {
+                "color": "#fff"
+            }
+        },
+        "mobile": {
+            "backgroundColor": "#1d1d1d"
+        }
+    },
+    "link": {
+        "color": "#d7d7d7",
+        "padding": "0 20px",
+        "hover": {
+            "color": "#fff",
+            "background-color": "#353535"
+        },
+        "active": {
+            "color": "#00aeff",
+            "underlineHeight": "3px"
+        }
+    },
+    "button": {
+        "gap": "25px",
+        "primary": {
+            "padding": "10px 20px",
+            "backgroundColor": "#0094d8",
+            "color": "#fff",
+            "borderRadius": "100px",
+            "hover": {
+                "backgroundColor": "#00aeff",
+                "color": "#fff"
+            }
+        }
+    },
+    "mobileMenu": {
+        "borderRadius": "0 0 20px 20px",
+        "icon": {
+            "backgroundColor": "#d7d7d7",
+            "hover": {
+                "backgroundColor": "#fff"
+            }
+        }
+    }
+}

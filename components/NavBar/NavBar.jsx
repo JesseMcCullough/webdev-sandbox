@@ -5,14 +5,19 @@ import MobileMenuButton from "./MobileMenuButton";
 import DropdownToggle from "./DropdownToggle";
 import ActiveNavLink from "./ActiveNavLink";
 import Link from "next/link";
+import NavBarTheme from "./NavBarTheme";
 
-export function NavBar({ children }) {
+export function NavBar({ theme = defaultTheme, children }) {
+    const themeName = "navbar-theme";
+
     return (
-        <div className={`${styles.nav} navbar-theme`} id="navbar">
-            <div className={`${styles.container} container`}>
-                {children}
-                <MobileMenuButton navId="navbar" />
-            </div>
+        <div className={`${styles.nav} ${themeName}`} id="navbar">
+            <NavBarTheme name={themeName} theme={theme}>
+                <div className={`${styles.container} container`}>
+                    {children}
+                    <MobileMenuButton navId="navbar" />
+                </div>
+            </NavBarTheme>
         </div>
     );
 }
