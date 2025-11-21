@@ -3,6 +3,12 @@
     "backgroundColor": "#000",
     "logoPadding": "0px",
     "gap": "25px",
+    "float": {
+        "enable": false,
+        "mobileMenuOpen": {
+            "backgroundColor": "#000"
+        }
+    },
     "dropdownMenu": {
         "backgroundColor": "#000",
         "borderRadius": "0 0 10px 10px",

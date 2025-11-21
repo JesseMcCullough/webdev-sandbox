@@ -9,7 +9,15 @@ import defaultTheme from "./navbar.config.json";
 
 export function NavBar({ theme = defaultTheme, children }) {
     return (
-        <div className={styles.nav} id="navbar" style={themeToCssVars(theme)}>
+        <div
+            className={
+                theme.float.enable
+                    ? `${styles.nav} ${styles.float}`
+                    : styles.nav
+            }
+            id="navbar"
+            style={themeToCssVars(theme)}
+        >
             <div className={`${styles.container} container`}>
                 {children}
                 <MobileMenuButton navId="navbar" />
