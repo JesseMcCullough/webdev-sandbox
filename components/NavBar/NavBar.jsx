@@ -1,11 +1,9 @@
 import styles from "./NavBar.module.css";
-import Image from "next/image";
 import React from "react";
 import MobileMenuButton from "./MobileMenuButton";
 import DropdownToggle from "./DropdownToggle";
 import ActiveListItem from "./ActiveListItem";
 import NavLinks from "./NavLinks";
-import Link from "next/link";
 import themeToCssVars from "@/utils/themeToCssVars";
 import defaultTheme from "./navbar.config.json";
 
@@ -20,29 +18,12 @@ export function NavBar({ theme = defaultTheme, children }) {
     );
 }
 NavBar.Links = NavLinks;
-NavBar.Logo = NavLogo;
-NavBar.Button = NavButton;
-NavBar.Buttons = NavButtons;
 NavBar.DropdownMenu = NavDropdownMenu;
 NavBar.Actions = NavActions;
+NavBar.getButtonPrimaryClassName = getButtonPrimaryClassName;
+NavBar.getLogoClassName = getLogoClassName;
 
 export { default as NavLinks } from "./NavLinks";
-
-export function NavLogo({ image }) {
-    return <Image className={styles.logo} src={image} alt="" />;
-}
-
-export function NavButton({ name, href, primary = false }) {
-    return (
-        <Link href={href} className={primary ? styles.cta : styles.login}>
-            {name}
-        </Link>
-    );
-}
-
-export function NavButtons({ children }) {
-    return <div className={styles["button-links"]}>{children}</div>;
-}
 
 export function NavDropdownMenu({ name, children }) {
     return (
@@ -76,4 +57,12 @@ export function NavDropdownMenu({ name, children }) {
 
 export function NavActions({ children }) {
     return <div className={styles.actions}>{children}</div>;
+}
+
+export function getButtonPrimaryClassName() {
+    return `${styles["button"]} ${styles["primary"]}`;
+}
+
+export function getLogoClassName() {
+    return styles["logo"];
 }

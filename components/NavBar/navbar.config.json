@@ -22,24 +22,30 @@
         "padding": "0 20px",
         "hover": {
             "color": "#fff",
-            "background-color": "#353535"
+            "backgroundColor": "#353535"
         },
         "active": {
             "color": "#00aeff",
             "underlineHeight": "3px"
         }
     },
-    "button": {
+    "actions": {
         "gap": "25px",
-        "primary": {
-            "padding": "10px 20px",
-            "backgroundColor": "#0094d8",
-            "color": "#fff",
-            "borderRadius": "100px",
-            "hover": {
-                "backgroundColor": "#00aeff",
-                "color": "#fff"
+        "button": {
+            "primary": {
+                "padding": "10px 20px",
+                "backgroundColor": "#0094d8",
+                "color": "#fff",
+                "borderRadius": "100px",
+                "hover": {
+                    "backgroundColor": "#00aeff",
+                    "color": "#fff"
+                }
             }
+        },
+        "link": {
+            "padding": "0",
+            "backgroundColor": "unset"
         }
     },
     "mobileMenu": {

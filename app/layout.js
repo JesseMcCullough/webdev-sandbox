@@ -2,6 +2,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "../components/NavBar/NavBar";
 import Link from "next/link";
+import Image from "next/image";
 import logo from "../images/logo.jpg";
 
 const roboto = Roboto({
@@ -19,7 +20,11 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={roboto.className}>
                 <NavBar>
-                    <NavBar.Logo image={logo} />
+                    <Image
+                        className={NavBar.getLogoClassName()}
+                        src={logo}
+                        alt=""
+                    />
                     <NavBar.Links>
                         <Link href="/">Home</Link>
                         <NavBar.DropdownMenu name="Projects">
@@ -40,7 +45,12 @@ export default function RootLayout({ children }) {
                     </NavBar.Links>
                     <NavBar.Actions>
                         <Link href="#">Login</Link>
-                        <NavBar.Button name="Sign Up" href="#" primary={true} />
+                        <Link
+                            href="#"
+                            className={NavBar.getButtonPrimaryClassName()}
+                        >
+                            Sign Up
+                        </Link>
                     </NavBar.Actions>
                 </NavBar>
                 {children}
