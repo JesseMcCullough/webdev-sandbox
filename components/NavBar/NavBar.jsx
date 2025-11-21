@@ -1,4 +1,4 @@
-import styles from "./NavBar.module.css";
+import "./NavBar.css";
 import React from "react";
 import MobileMenuButton from "./MobileMenuButton";
 import DropdownToggle from "./DropdownToggle";
@@ -10,15 +10,11 @@ import defaultTheme from "./navbar.config.json";
 export function NavBar({ theme = defaultTheme, children }) {
     return (
         <div
-            className={
-                theme.float.enable
-                    ? `${styles.nav} ${styles.float}`
-                    : styles.nav
-            }
+            className={theme.float.enable ? "nav float" : "nav"}
             id="navbar"
             style={themeToCssVars(theme)}
         >
-            <div className={`${styles.container} container`}>
+            <div className="container">
                 {children}
                 <MobileMenuButton navId="navbar" />
             </div>
@@ -28,19 +24,17 @@ export function NavBar({ theme = defaultTheme, children }) {
 NavBar.Links = NavLinks;
 NavBar.DropdownMenu = NavDropdownMenu;
 NavBar.Actions = NavActions;
-NavBar.getButtonPrimaryClassName = getButtonPrimaryClassName;
-NavBar.getLogoClassName = getLogoClassName;
 
 export { default as NavLinks } from "./NavLinks";
 
 export function NavDropdownMenu({ name, children }) {
     return (
         <DropdownToggle name={name}>
-            <div className={styles["dropdown-name-container"]}>
-                <span className={styles["dropdown-name"]}>{name}</span>
-                <div className={styles["dropdown-icon"]}>
-                    <div className={styles.left}></div>
-                    <div className={styles.right}></div>
+            <div className="dropdown-name-container">
+                <span className="dropdown-name">{name}</span>
+                <div className="dropdown-icon">
+                    <div className="left"></div>
+                    <div className="right"></div>
                 </div>
             </div>
 
@@ -64,13 +58,5 @@ export function NavDropdownMenu({ name, children }) {
 }
 
 export function NavActions({ children }) {
-    return <div className={styles.actions}>{children}</div>;
-}
-
-export function getButtonPrimaryClassName() {
-    return `${styles["button"]} ${styles["primary"]}`;
-}
-
-export function getLogoClassName() {
-    return styles["logo"];
+    return <div className="actions">{children}</div>;
 }

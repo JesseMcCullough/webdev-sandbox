@@ -1,9 +1,9 @@
 import { Roboto } from "next/font/google";
-import "./globals.css";
 import { NavBar } from "../components/NavBar/NavBar";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../images/logo.jpg";
+import "./globals.css";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -20,11 +20,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={roboto.className}>
                 <NavBar>
-                    <Image
-                        className={NavBar.getLogoClassName()}
-                        src={logo}
-                        alt=""
-                    />
+                    <Image className="logo" src={logo} alt="" />
                     <NavBar.Links>
                         <Link href="/">Home</Link>
                         <NavBar.DropdownMenu name="Projects">
@@ -45,10 +41,7 @@ export default function RootLayout({ children }) {
                     </NavBar.Links>
                     <NavBar.Actions>
                         <Link href="#">Login</Link>
-                        <Link
-                            href="#"
-                            className={NavBar.getButtonPrimaryClassName()}
-                        >
+                        <Link href="#" className="button primary">
                             Sign Up
                         </Link>
                     </NavBar.Actions>

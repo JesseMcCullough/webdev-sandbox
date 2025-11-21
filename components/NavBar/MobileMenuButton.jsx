@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import styles from "./NavBar.module.css";
 
 export default function MobileMenuButton({ navId }) {
     const [open, setOpen] = useState(false);
@@ -12,7 +11,7 @@ export default function MobileMenuButton({ navId }) {
 
         if (!target) return;
 
-        target.classList.toggle(styles.active, open);
+        target.classList.toggle("active", open);
     }, [open]);
 
     // close menu when clicking outside or clicking a link
@@ -38,13 +37,10 @@ export default function MobileMenuButton({ navId }) {
     }, [open]);
 
     return (
-        <div
-            className={styles["mobile-menu-icon"]}
-            onClick={() => setOpen(!open)}
-        >
-            <div className={styles.bar}></div>
-            <div className={styles.bar}></div>
-            <div className={styles.bar}></div>
+        <div className="mobile-menu-icon" onClick={() => setOpen(!open)}>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
         </div>
     );
 }

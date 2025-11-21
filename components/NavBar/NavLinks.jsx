@@ -1,13 +1,12 @@
 import { NavDropdownProvider } from "./NavDropdownContext";
 import ActiveListItem from "./ActiveListItem";
-import styles from "./NavBar.module.css";
 import React from "react";
 
 export default function NavLinks({ children }) {
     return (
         <NavDropdownProvider>
-            <ul id="nav-links" className={styles.navLinks}>
-                <div className={styles["nav-links-wrapper"]}>
+            <ul id="nav-links" className="nav-links">
+                <div className="nav-links-wrapper">
                     {React.Children.map(children, (child) => {
                         if (child.type === "a" || child.props?.href) {
                             return (
