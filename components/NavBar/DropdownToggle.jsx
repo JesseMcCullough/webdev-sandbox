@@ -1,7 +1,6 @@
 "use client";
 
 import { useNavDropdown } from "./NavDropdownContext";
-import styles from "./NavBar.module.css";
 
 export default function DropdownToggle({ name, children }) {
     const { openDropdown, toggleDropdown } = useNavDropdown();
@@ -10,9 +9,7 @@ export default function DropdownToggle({ name, children }) {
 
     return (
         <li
-            className={
-                isOpen ? `${styles.dropdown} ${styles.active}` : styles.dropdown
-            }
+            className={isOpen ? "dropdown active" : "dropdown"}
             onClick={() => toggleDropdown(name)}
         >
             {children}
