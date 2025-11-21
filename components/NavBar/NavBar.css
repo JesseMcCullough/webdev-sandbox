@@ -60,7 +60,6 @@
 
 .nav .dropdown {
     display: block; /* placeholder for css module. do not delete */
-    color: var(--link-color);
 }
 
 .nav .dropdown.active ul {
@@ -119,6 +118,7 @@
 .nav a,
 .nav .dropdown-name-container {
     text-decoration: none;
+    color: var(--link-color);
     transition: color 0.2s, background-color 0.2s;
     height: 100%;
     width: 100%;
