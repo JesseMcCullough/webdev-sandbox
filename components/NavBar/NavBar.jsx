@@ -3,7 +3,8 @@ import Image from "next/image";
 import React from "react";
 import MobileMenuButton from "./MobileMenuButton";
 import DropdownToggle from "./DropdownToggle";
-import ActiveNavLink from "./ActiveNavLink";
+import ActiveListItem from "./ActiveListItem";
+import NavLinks from "./NavLinks";
 import Link from "next/link";
 import themeToCssVars from "@/utils/themeToCssVars";
 import defaultTheme from "./navbar.config.json";
@@ -18,16 +19,12 @@ export function NavBar({ theme = defaultTheme, children }) {
         </div>
     );
 }
-
-export function NavLink({ name, href }) {
-    return (
-        <ActiveNavLink href={href}>
-            <Link href={href}>
-                <span className={styles["link-name"]}>{name}</span>
-            </Link>
-        </ActiveNavLink>
-    );
-}
+NavBar.Links = NavLinks;
+NavBar.Logo = NavLogo;
+NavBar.Button = NavButton;
+NavBar.Buttons = NavButtons;
+NavBar.DropdownMenu = NavDropdownMenu;
+NavBar.Actions = NavActions;
 
 export { default as NavLinks } from "./NavLinks";
 
@@ -59,7 +56,19 @@ export function NavDropdownMenu({ name, children }) {
             </div>
 
             <ul>
-                <div>{children}</div>
+                <div>
+                    {React.Children.map(children, (child) => {
+                        if (child.type === "a" || child.props?.href) {
+                            return (
+                                <ActiveListItem href={child.props.href}>
+                                    {child}
+                                </ActiveListItem>
+                            );
+                        }
+
+                        return child;
+                    })}
+                </div>
             </ul>
         </DropdownToggle>
     );

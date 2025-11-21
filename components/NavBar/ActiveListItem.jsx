@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import styles from "./NavBar.module.css";
 
-export default function ActiveNavLink({ href, children }) {
+export default function ActiveListItem({ href, children }) {
     const currentPath = usePathname();
     const isActive = currentPath === href;
 

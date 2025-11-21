@@ -1,14 +1,6 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import {
-    NavBar,
-    NavLogo,
-    NavLink,
-    NavLinks,
-    NavButton,
-    NavDropdownMenu,
-    NavActions,
-} from "../components/NavBar/NavBar";
+import { NavBar } from "../components/NavBar/NavBar";
 import Link from "next/link";
 import logo from "../images/logo.jpg";
 
@@ -27,29 +19,29 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={roboto.className}>
                 <NavBar>
-                    <NavLogo image={logo} />
-                    <NavLinks>
-                        <NavLink name="Home" href="/" />
-                        <NavDropdownMenu name="Projects">
-                            <NavLink name="Project A" href="#" />
-                            <NavLink name="Project B" href="#" />
-                            <NavLink name="Project C" href="#" />
-                        </NavDropdownMenu>
-                        <NavDropdownMenu name="About Us">
-                            <NavLink
-                                name="Our Mission Our Mission Our Mission"
-                                href="#"
-                            />
-                            <NavLink name="Our Team" href="#" />
-                            <NavLink name="Our Values" href="#" />
-                        </NavDropdownMenu>
-                        <NavLink name="Item-4" href="#" />
-                        <NavLink name="Test" href="/test" />
-                    </NavLinks>
-                    <NavActions>
+                    <NavBar.Logo image={logo} />
+                    <NavBar.Links>
+                        <Link href="/">Home</Link>
+                        <NavBar.DropdownMenu name="Projects">
+                            <Link href="#">Project A</Link>
+                            <Link href="#">Project B</Link>
+                            <Link href="#">Project C</Link>
+                            <Link href="#">Project D</Link>
+                        </NavBar.DropdownMenu>
+                        <NavBar.DropdownMenu name="About Us">
+                            <Link href="#">
+                                Our Mission Our Mission Our Mission
+                            </Link>
+                            <Link href="#">Our Team</Link>
+                            <Link href="#">Our Values</Link>
+                        </NavBar.DropdownMenu>
+                        <Link href="#">Item-4</Link>
+                        <Link href="/test">Test</Link>
+                    </NavBar.Links>
+                    <NavBar.Actions>
                         <Link href="#">Login</Link>
-                        <NavButton name="Sign Up" href="#" primary={true} />
-                    </NavActions>
+                        <NavBar.Button name="Sign Up" href="#" primary={true} />
+                    </NavBar.Actions>
                 </NavBar>
                 {children}
             </body>
