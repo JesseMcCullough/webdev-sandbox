@@ -1,10 +1,9 @@
 import styles from "./NavBar.module.css";
-import Image from "next/image";
 import React from "react";
 import MobileMenuButton from "./MobileMenuButton";
 import DropdownToggle from "./DropdownToggle";
-import ActiveNavLink from "./ActiveNavLink";
-import Link from "next/link";
+import ActiveListItem from "./ActiveListItem";
+import NavLinks from "./NavLinks";
 import themeToCssVars from "@/utils/themeToCssVars";
 import defaultTheme from "./navbar.config.json";
 
@@ -18,32 +17,13 @@ export function NavBar({ theme = defaultTheme, children }) {
         </div>
     );
 }
+NavBar.Links = NavLinks;
+NavBar.DropdownMenu = NavDropdownMenu;
+NavBar.Actions = NavActions;
+NavBar.getButtonPrimaryClassName = getButtonPrimaryClassName;
+NavBar.getLogoClassName = getLogoClassName;
 
-export function NavLink({ name, href }) {
-    return (
-        <ActiveNavLink href={href}>
-            <Link href={href}>
-                <span className={styles["link-name"]}>{name}</span>
-            </Link>
-        </ActiveNavLink>
-    );
-}
-
-export function NavLogo({ image }) {
-    return <Image className={styles.logo} src={image} alt="" />;
-}
-
-export function NavButton({ name, href, primary = false }) {
-    return (
-        <Link href={href} className={primary ? styles.cta : styles.login}>
-            {name}
-        </Link>
-    );
-}
-
-export function NavButtons({ children }) {
-    return <div className={styles["button-links"]}>{children}</div>;
-}
+export { default as NavLinks } from "./NavLinks";
 
 export function NavDropdownMenu({ name, children }) {
     return (
@@ -57,10 +37,32 @@ export function NavDropdownMenu({ name, children }) {
             </div>
 
             <ul>
-                <div>{children}</div>
+                <div>
+                    {React.Children.map(children, (child) => {
+                        if (child.type === "a" || child.props?.href) {
+                            return (
+                                <ActiveListItem href={child.props.href}>
+                                    {child}
+                                </ActiveListItem>
+                            );
+                        }
+
+                        return child;
+                    })}
+                </div>
             </ul>
         </DropdownToggle>
     );
 }
 
-export { default as NavLinks } from "./NavLinks";
+export function NavActions({ children }) {
+    return <div className={styles.actions}>{children}</div>;
+}
+
+export function getButtonPrimaryClassName() {
+    return `${styles["button"]} ${styles["primary"]}`;
+}
+
+export function getLogoClassName() {
+    return styles["logo"];
+}

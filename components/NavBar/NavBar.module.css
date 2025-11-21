@@ -143,42 +143,6 @@
     z-index: 1;
 }
 
-.nav .button-links {
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--button-gap);
-}
-
-.nav .button-links a {
-    width: auto;
-}
-
-.nav .cta {
-    padding: var(--button-primary-padding);
-    background-color: var(--button-primary-background-color);
-    color: var(--button-primary-color);
-    text-decoration: none;
-    border-radius: var(--button-primary-border-radius);
-    transition: color 0.2s, background-color 0.2s;
-    height: auto;
-}
-
-/* redefine cta & login to primary & secondary buttons and make room for links */
-.nav .login {
-    padding: 0;
-}
-
-.nav .login:hover {
-    background-color: unset;
-}
-
-.nav .cta:hover {
-    background-color: var(--button-primary-hover-background-color);
-    color: var(--button-primary-hover-color);
-}
-
 .nav .mobile-menu-icon {
     display: none;
     flex-direction: column;
@@ -219,6 +183,43 @@
 
 .nav.active .mobile-menu-icon .bar:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
+}
+
+.nav .actions {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--actions-gap);
+    height: 100%;
+}
+
+.nav .actions a {
+    background-color: var(--actions-link-background-color);
+    padding: var(--actions-link-padding);
+    width: auto;
+}
+
+.nav .actions a:hover {
+    background-color: unset;
+}
+
+.nav .actions .button {
+    text-decoration: none;
+    transition: color 0.2s, background-color 0.2s;
+    height: auto;
+}
+
+.nav .actions .button.primary {
+    padding: var(--actions-button-primary-padding);
+    background-color: var(--actions-button-primary-background-color);
+    color: var(--actions-button-primary-color);
+    border-radius: var(--actions-button-primary-border-radius);
+}
+
+.nav .actions .button.primary:hover {
+    background-color: var(--actions-button-primary-hover-background-color);
+    color: var(--actions-button-primary-hover-color);
 }
 
 @media screen and (max-width: 1024px) {
@@ -271,7 +272,7 @@
         display: flex;
     }
 
-    .nav .button-links {
+    .nav .actions {
         flex: 1;
     }
 
