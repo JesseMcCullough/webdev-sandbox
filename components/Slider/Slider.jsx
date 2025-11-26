@@ -6,19 +6,22 @@ import "./Slider.css";
 const SliderContext = createContext();
 
 export function Slider({ name = null, transitionDuration = 500, children }) {
-    const [currentView, setCurrentView] = useState(null);
-    const [previousView, setPreviousView] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(-1);
+    const [previousIndex, setPreviousIndex] = useState(-1);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const timeoutRef = useRef(null);
     const viewerRef = useRef(null);
+    const itemsRef = useRef([]);
 
-    function setView(view) {
+    function setSliderViewerToIndex(view) {
+        if (view < 0 || view >= itemsRef.current.length) return;
+
         clearTimeout(timeoutRef.current);
         setIsTransitioning(true);
-        setCurrentView(view);
+        setActiveIndex(view);
 
         timeoutRef.current = setTimeout(() => {
-            setPreviousView(view);
+            setPreviousIndex(view);
             setIsTransitioning(false);
         }, transitionDuration);
     }
@@ -26,13 +29,12 @@ export function Slider({ name = null, transitionDuration = 500, children }) {
     return (
         <SliderContext.Provider
             value={{
-                currentView,
-                previousView,
-                setPreviousView,
+                activeIndex,
+                previousIndex,
                 isTransitioning,
-                setIsTransitioning,
-                setView,
+                setSliderViewerToIndex,
                 viewerRef,
+                itemsRef,
             }}
         >
             <div className={name ? `slider ${name}` : "slider"}>{children}</div>
@@ -40,13 +42,11 @@ export function Slider({ name = null, transitionDuration = 500, children }) {
     );
 }
 
-export function SliderViewer({ initialView, renderViewer = null }) {
-    const { currentView, previousView, setView, isTransitioning, viewerRef } =
+export function SliderViewer({ renderViewer = null }) {
+    const { activeIndex, previousIndex, itemsRef, isTransitioning, viewerRef } =
         useContext(SliderContext);
-
-    useEffect(() => {
-        if (!currentView) setView(initialView);
-    }, []);
+    const activeItem = itemsRef.current[activeIndex];
+    const previousItem = itemsRef.current[previousIndex];
 
     return (
         <div
@@ -54,20 +54,20 @@ export function SliderViewer({ initialView, renderViewer = null }) {
                 isTransitioning ? "slider-viewer transition" : "slider-viewer"
             }
             ref={viewerRef}
-            data-index={0}
+            data-index={activeIndex}
         >
             <div className="content">
                 {renderViewer ? (
-                    renderViewer(currentView)
+                    renderViewer(activeItem)
                 ) : (
-                    <img src={currentView} />
+                    <img src={activeItem} />
                 )}
 
                 <div className="content previous">
                     {renderViewer ? (
-                        renderViewer(previousView)
+                        renderViewer(previousItem)
                     ) : (
-                        <img src={previousView} />
+                        <img src={previousItem} />
                     )}
                 </div>
             </div>
@@ -86,12 +86,30 @@ export function SliderItems({ children }) {
 }
 
 export function SliderItem({ data, thumbnail }) {
-    const { currentView, setView } = useContext(SliderContext);
+    const { activeIndex, setSliderViewerToIndex, itemsRef } =
+        useContext(SliderContext);
+    const indexRef = useRef(-1);
+
+    useEffect(() => {
+        const existingIndex = itemsRef.current.indexOf(data);
+
+        if (existingIndex !== -1) {
+            indexRef.current = existingIndex;
+            return;
+        }
+
+        indexRef.current = itemsRef.current.length;
+        itemsRef.current.push(data);
+
+        if (indexRef.current === 0) {
+            setSliderViewerToIndex(indexRef.current);
+        }
+    }, []);
 
     function handleClick() {
-        if (currentView === data) return;
+        if (activeIndex === indexRef.current) return;
 
-        setView(data);
+        setSliderViewerToIndex(indexRef.current);
     }
 
     return (
@@ -106,28 +124,17 @@ export function SliderItem({ data, thumbnail }) {
 }
 
 export function SliderArrow({ direction }) {
-    const { viewerRef, setView } = useContext(SliderContext);
+    const { activeIndex, setSliderViewerToIndex } = useContext(SliderContext);
 
-    function handleClick(e, direction = 1) {
-        const viewerIndex = Number(viewerRef.current.dataset.index);
-        const slider = e.target.closest(".slider");
-        const items = slider.querySelectorAll(".slider-item");
-        const nextIndex = viewerIndex + direction;
-
-        if (nextIndex < 0 || nextIndex >= items.length) return;
-
-        const data = items[nextIndex].dataset.value;
-
-        setView(data);
-
-        viewerRef.current.dataset.index = nextIndex;
+    function handleClick(direction = 1) {
+        setSliderViewerToIndex(activeIndex + direction);
     }
 
     return (
         <div
             className={`slider-arrow ${direction}`}
             onClick={(e) =>
-                direction === "right" ? handleClick(e) : handleClick(e, -1)
+                direction === "right" ? handleClick() : handleClick(-1)
             }
         >
             <div className="slider-arrow-icon">
