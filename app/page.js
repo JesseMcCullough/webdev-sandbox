@@ -17,10 +17,26 @@ export default function Home() {
             <Slider>
                 <SliderViewer initialView={apple.src} />
                 <SliderItems>
-                    <SliderItem data={apple.src} thumbnail={apple.src} />
-                    <SliderItem data={banana.src} thumbnail={banana.src} />
-                    <SliderItem data={logo.src} thumbnail={logo.src} />
-                    <SliderItem data={peach.src} thumbnail={peach.src} />
+                    <SliderItem
+                        index={0}
+                        data={apple.src}
+                        thumbnail={apple.src}
+                    />
+                    <SliderItem
+                        index={1}
+                        data={banana.src}
+                        thumbnail={banana.src}
+                    />
+                    <SliderItem
+                        index={2}
+                        data={logo.src}
+                        thumbnail={logo.src}
+                    />
+                    <SliderItem
+                        index={3}
+                        data={peach.src}
+                        thumbnail={peach.src}
+                    />
                 </SliderItems>
             </Slider>
         </>
