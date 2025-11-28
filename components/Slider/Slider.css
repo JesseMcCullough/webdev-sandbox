@@ -53,6 +53,10 @@
     align-items: center;
 }
 
+.slider-viewer .slider-items-container {
+    scroll-snap-type: x mandatory;
+}
+
 .slider-items-container {
     width: 100%;
     height: auto;

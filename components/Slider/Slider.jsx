@@ -1,58 +1,84 @@
 "use client";
 
-import {
-    useState,
-    useEffect,
-    createContext,
-    useContext,
-    useRef,
-    useLayoutEffect,
-} from "react";
+import { useState, useEffect, createContext, useContext, useRef } from "react";
 import "./Slider.css";
 
 const SliderContext = createContext();
 
-export function Slider({ name = null, transitionDuration = 500, children }) {
+export function Slider({ name = null, children }) {
     const [items, setItems] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [previousIndex, setPreviousIndex] = useState(-1);
-    const [isTransitioning, setIsTransitioning] = useState(false);
-    const timeoutRef = useRef(null);
+    const shouldScrollItemsRef = useRef(true);
     const viewerRef = useRef(null);
     const itemsRef = useRef([]);
     const viewerItemsRef = useRef([]);
+    const sliderItemsContainerRef = useRef(null);
+    const visibleMap = useRef({}); // index: isVisible boolean
 
-    function setSliderViewerToIndex(index) {
+    function setSliderViewerToIndex(
+        index,
+        shouldScrollItems = true,
+        shouldScrollViewerItems = true
+    ) {
         if (index < 0 || index >= itemsRef.current.length) return;
 
-        clearTimeout(timeoutRef.current);
-        setIsTransitioning(true);
+        shouldScrollItemsRef.current = shouldScrollItems;
         setActiveIndex(index);
 
-        viewerItemsRef.current[index].scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "center",
+        if (shouldScrollViewerItems) {
+            viewerItemsRef.current[index].scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center",
+            });
+        }
+    }
+
+    // sets up observer to watch the items / dots
+    useEffect(() => {
+        if (!sliderItemsContainerRef.current) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const index = Number(entry.target.dataset.index);
+
+                    visibleMap.current[index] = entry.isIntersecting;
+                });
+            },
+            {
+                root: sliderItemsContainerRef.current,
+                threshold: 0.6,
+            }
+        );
+
+        itemsRef.current.forEach((item) => {
+            observer.observe(item);
         });
 
-        // itemsRef.current[index].scrollIntoView({
-        //     behavior: "smooth",
-        //     block: "center",
-        //     inline: "center",
-        // });
+        return () => observer.disconnect();
+    }, []);
 
-        timeoutRef.current = setTimeout(() => {
-            setPreviousIndex(index);
-            setIsTransitioning(false);
-        }, transitionDuration);
-    }
+    // scroll items (dots) into view
+    useEffect(() => {
+        const visible = visibleMap.current[activeIndex];
+        const el = itemsRef.current[activeIndex];
+
+        if (!visible && el && shouldScrollItemsRef.current) {
+            el.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "start",
+            });
+        }
+
+        shouldScrollItemsRef.current = true;
+    }, [activeIndex]);
 
     return (
         <SliderContext.Provider
             value={{
                 activeIndex,
-                previousIndex,
-                isTransitioning,
                 setSliderViewerToIndex,
                 viewerRef,
                 itemsRef,
@@ -60,6 +86,8 @@ export function Slider({ name = null, transitionDuration = 500, children }) {
                 setItems,
                 setActiveIndex,
                 viewerItemsRef,
+                shouldScrollItemsRef,
+                sliderItemsContainerRef,
             }}
         >
             <div className={name ? `slider ${name}` : "slider"}>{children}</div>
@@ -70,23 +98,42 @@ export function Slider({ name = null, transitionDuration = 500, children }) {
 export function SliderViewer({ renderViewer = null }) {
     const {
         activeIndex,
-        previousIndex,
-        itemsRef,
-        isTransitioning,
         viewerRef,
         items,
-        setActiveIndex,
         viewerItemsRef,
         setSliderViewerToIndex,
     } = useContext(SliderContext);
-    const activeItem = itemsRef.current[activeIndex];
-    const previousItem = itemsRef.current[previousIndex];
+    const sliderItemsRef = useRef(null);
+
+    // sets up observer to select active item when scrolling through SliderViewer
+    useEffect(() => {
+        if (!sliderItemsRef.current) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const index = Number(entry.target.dataset.index);
+                    if (entry.isIntersecting) {
+                        setSliderViewerToIndex(index, true, false);
+                    }
+                });
+            },
+            {
+                root: sliderItemsRef.current,
+                threshold: 0.5,
+            }
+        );
+
+        viewerItemsRef.current.forEach((item) => {
+            observer.observe(item);
+        });
+
+        return () => observer.disconnect();
+    }, [items.length]);
 
     return (
         <div
-            className={
-                isTransitioning ? "slider-viewer transition" : "slider-viewer"
-            }
+            className={"slider-viewer"}
             ref={viewerRef}
             data-index={activeIndex}
         >
@@ -96,14 +143,13 @@ export function SliderViewer({ renderViewer = null }) {
                         const newIndex =
                             direction === "right"
                                 ? activeIndex + 1
-                                : activeIndex - 1; // hello
+                                : activeIndex - 1;
 
                         setSliderViewerToIndex(newIndex);
-                        console.log("clicked");
                     }}
+                    registerRef={sliderItemsRef}
                 >
                     {items.map((item) => {
-                        //console.log("itemsRef item map", item);
                         return (
                             <SliderItem
                                 data={item.data}
@@ -123,93 +169,21 @@ export function SliderViewer({ renderViewer = null }) {
                         );
                     })}
                 </SliderItems>
-
-                {/* {renderViewer ? (
-                    renderViewer(activeItem)
-                ) : (
-                    <img src={activeItem} />
-                )}
-
-                <div className="content previous">
-                    {renderViewer ? (
-                        renderViewer(previousItem)
-                    ) : (
-                        <img src={previousItem} />
-                    )}
-                </div> */}
             </div>
         </div>
     );
 }
 
-export function SliderItems({ onClick, children }) {
-    const { itemsRef, activeIndex, items } = useContext(SliderContext);
-    const containerRef = useRef(null);
-    const visibleMap = useRef({}); // index: isVisible boolean
-    const hasObserverTicked = useRef(false);
-
-    useLayoutEffect(() => {
-        console.log("--------CREATING OBSERVER", items.length);
-
-        if (!containerRef.current) return;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const index = Number(entry.target.dataset.index);
-                    visibleMap.current[index] = entry.isIntersecting;
-                    console.log(
-                        "insection loop in entries",
-                        index,
-                        entry.isIntersecting
-                    );
-                    hasObserverTicked.current = true;
-                });
-            },
-            {
-                root: containerRef.current,
-                threshold: 0.6,
-            }
-        );
-
-        itemsRef.current.forEach((item, index) => {
-            console.log("looping itemsRef", item);
-
-            if (!item) return;
-
-            item.dataset.index = index;
-            observer.observe(item);
-        });
-
-        return () => observer.disconnect();
-    }, []);
-
-    useEffect(() => {
-        console.log("observerTicked?", hasObserverTicked.current);
-        if (!hasObserverTicked.current) return;
-
-        const visible = visibleMap.current[activeIndex];
-        const el = itemsRef.current[activeIndex];
-
-        console.log("activeItem", el);
-        console.log("activeIndex", activeIndex);
-        console.log("visible", visible);
-        console.log("visibleMap", visibleMap);
-        console.log("-----------");
-
-        if (!visible && el) {
-            el.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "start",
-            });
-        }
-    }, [activeIndex]);
+export function SliderItems({ onClick, registerRef, children }) {
+    const { sliderItemsContainerRef } = useContext(SliderContext);
 
     return (
         <div className="slider-items">
             <SliderArrow direction="left" onClick={onClick} />
-            <div className="slider-items-container" ref={containerRef}>
+            <div
+                className="slider-items-container"
+                ref={registerRef ? registerRef : sliderItemsContainerRef}
+            >
                 {children}
             </div>
             <SliderArrow direction="right" onClick={onClick} />
@@ -220,12 +194,14 @@ export function SliderItems({ onClick, children }) {
 export function SliderItem({ index, data, thumbnail, registerRef, children }) {
     const { activeIndex, setSliderViewerToIndex, itemsRef, items, setItems } =
         useContext(SliderContext);
+
     function handleClick() {
         if (activeIndex === index) return;
 
-        setSliderViewerToIndex(index);
+        setSliderViewerToIndex(index, false);
     }
 
+    // adds item object data (index, data, thumbnail) to items
     useEffect(() => {
         const exists = items.some((item) => item.index === index);
         if (exists) return;
@@ -240,13 +216,10 @@ export function SliderItem({ index, data, thumbnail, registerRef, children }) {
         <div
             className="slider-item"
             onClick={handleClick}
-            onMouseEnter={handleClick}
             style={{ backgroundImage: `url("${thumbnail}")` }}
             data-value={data}
             data-index={index}
             ref={(element) => {
-                //if (itemsRef.current.indexOf(index) !== -1) return;
-
                 registerRef
                     ? registerRef(element)
                     : (itemsRef.current[index] = element);
@@ -261,7 +234,7 @@ export function SliderArrow({ direction, onClick }) {
     const { activeIndex, setSliderViewerToIndex } = useContext(SliderContext);
 
     function handleClick(direction = 1) {
-        // setSliderViewerToIndex(activeIndex + direction);
+        setSliderViewerToIndex(activeIndex + direction);
     }
 
     return (
