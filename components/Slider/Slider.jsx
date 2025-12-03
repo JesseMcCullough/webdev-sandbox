@@ -117,6 +117,7 @@ export function SliderViewer({ renderViewer = null }) {
         viewerItemsRef,
         setSliderViewerToIndex,
         isSliderViewerObserverActiveRef,
+        itemsRef,
     } = useContext(SliderContext);
     const sliderItemsRef = useRef(null);
 
@@ -173,19 +174,21 @@ export function SliderViewer({ renderViewer = null }) {
                     {items.map((item) => {
                         return (
                             <SliderItem
-                                data={item.data}
+                                // data={item.data}
                                 index={item.index}
                                 key={item.index}
                                 registerRef={(element) =>
                                     (viewerItemsRef.current[item.index] =
                                         element)
                                 }
+                                renderChildren={true}
                             >
-                                {renderViewer ? (
+                                {item.data}
+                                {/* {renderViewer ? (
                                     renderViewer(item.data)
                                 ) : (
                                     <img src={item.data} />
-                                )}
+                                )} */}
                             </SliderItem>
                         );
                     })}
@@ -229,7 +232,14 @@ function SliderIndicators({ children }) {
     return <div className="slider-indicators">{children}</div>;
 }
 
-export function SliderItem({ index, data, thumbnail, registerRef, children }) {
+export function SliderItem({
+    index,
+    data,
+    thumbnail,
+    registerRef,
+    children,
+    renderChildren = false,
+}) {
     const {
         activeIndex,
         setSliderViewerToIndex,
@@ -252,10 +262,17 @@ export function SliderItem({ index, data, thumbnail, registerRef, children }) {
         const exists = items.some((item) => item.index === index);
         if (exists) return;
 
-        setItems((prev) => [
-            ...prev,
-            { index: index, data: data, thumbnail: thumbnail },
-        ]);
+        if (children) {
+            setItems((prev) => [
+                ...prev,
+                { index: index, data: children, thumbnail: thumbnail },
+            ]);
+        } else {
+            setItems((prev) => [
+                ...prev,
+                { index: index, data: data, thumbnail: thumbnail },
+            ]);
+        }
     }, []);
 
     return (
@@ -274,7 +291,7 @@ export function SliderItem({ index, data, thumbnail, registerRef, children }) {
                     : (itemsRef.current[index] = element);
             }}
         >
-            {children}
+            {renderChildren && children}
         </div>
     );
 }
