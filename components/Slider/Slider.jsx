@@ -259,21 +259,19 @@ export function SliderItem({
 
     // adds item object data (index, data, thumbnail) to items
     useEffect(() => {
-        const exists = items.some((item) => item.index === index);
-        if (exists) return;
+        setItems((prev) => {
+            const updated = prev.map((item) =>
+                item.index === index
+                    ? { ...item, data: children ?? data }
+                    : item
+            );
 
-        if (children) {
-            setItems((prev) => [
-                ...prev,
-                { index: index, data: children, thumbnail: thumbnail },
-            ]);
-        } else {
-            setItems((prev) => [
-                ...prev,
-                { index: index, data: data, thumbnail: thumbnail },
-            ]);
-        }
-    }, []);
+            // If index wasn't found, add new item
+            return updated.some((item) => item.index === index)
+                ? updated
+                : [...updated, { index, data: children ?? data, thumbnail }];
+        });
+    }, [children]);
 
     return (
         <div
