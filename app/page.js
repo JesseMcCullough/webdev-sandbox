@@ -5,6 +5,7 @@ import {
     SliderItems,
     SliderItem,
     SliderIndicators,
+    SliderArrows,
 } from "@/components/Slider/Slider";
 import apple from "../images/apple.png";
 import banana from "../images/banana.png";
@@ -13,7 +14,7 @@ import peach from "../images/peach.png";
 
 export default function Home() {
     return (
-        <>
+        <div className="sliders">
             <Slider>
                 <SliderItems>
                     <SliderItem
@@ -95,6 +96,7 @@ export default function Home() {
                     </SliderItem>
                 </SliderItems>
                 <SliderIndicators />
+                <SliderArrows />
             </Slider>
             <Slider name="multi">
                 <SliderItems>
@@ -160,8 +162,9 @@ export default function Home() {
                         </p>
                     </SliderItem>
                 </SliderItems>
-                <SliderIndicators />
+                {/* <SliderIndicators /> */}
+                <SliderArrows />
             </Slider>
-        </>
+        </div>
     );
 }

@@ -154,16 +154,13 @@ export function SliderItems({ onClick, registerRef, children }) {
     }, [items.length]);
 
     return (
-        <div className="slider-items">
-            <SliderArrow direction="left" onClick={onClick} />
-            <div
-                className="slider-items-container"
-                ref={registerRef ? registerRef : itemsContainerRef}
-            >
-                {children}
-            </div>
-            <SliderArrow direction="right" onClick={onClick} />
+        <div
+            className="slider-items"
+            ref={registerRef ? registerRef : itemsContainerRef}
+        >
+            {children}
         </div>
+        // <SliderArrow direction="right" onClick={onClick} />
     );
 }
 
@@ -316,10 +313,15 @@ export function SliderItem({
 }
 
 export function SliderArrow({ direction, onClick }) {
-    const { activeIndex, setActiveItem } = useContext(SliderContext);
+    const { activeIndex, setActiveItem, items } = useContext(SliderContext);
     const debug = new Debug("SliderArrow", { enabled: isDebug });
+    const hasReachedEnd =
+        direction === "right" && activeIndex === items.length - 1;
+    const hasReachedBeginning = direction === "left" && activeIndex === 0;
 
     function handleClick(direction = 1) {
+        if (hasReachedEnd || hasReachedBeginning) return;
+
         debug.log(
             "Clicked arrow, setting index to " +
                 (activeIndex + direction) +
@@ -329,9 +331,14 @@ export function SliderArrow({ direction, onClick }) {
         setActiveItem(activeIndex + direction);
     }
 
+    let classNames = `slider-arrow ${direction}`;
+    if (hasReachedEnd || hasReachedBeginning) {
+        classNames += " disabled";
+    }
+
     return (
         <div
-            className={`slider-arrow ${direction}`}
+            className={classNames}
             onClick={() => {
                 if (onClick) onClick(direction);
                 direction === "right" ? handleClick() : handleClick(-1);
@@ -341,6 +348,15 @@ export function SliderArrow({ direction, onClick }) {
                 <div className="bar"></div>
                 <div className="bar"></div>
             </div>
+        </div>
+    );
+}
+
+export function SliderArrows() {
+    return (
+        <div className="slider-arrows">
+            <SliderArrow direction="left" />
+            <SliderArrow direction="right" />
         </div>
     );
 }
