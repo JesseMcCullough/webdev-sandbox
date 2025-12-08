@@ -1,0 +1,53 @@
+.accordion {
+    background-color: #e3e3e3;
+    padding: 20px;
+    border: 1px dashed black;
+    cursor: pointer;
+}
+
+.accordion.active .collapse {
+    grid-template-rows: 1fr;
+}
+
+.accordion .collapse {
+    grid-template-rows: 0fr;
+    display: grid;
+    transition: 0.2s ease-in-out;
+}
+
+.accordion .collapse-wrapper {
+    overflow: hidden;
+}
+
+.accordion.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.accordion .dropdown-icon {
+    display: flex;
+    transition: transform 0.2s;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.accordion .dropdown-icon div {
+    width: 10px;
+    height: 2px;
+    background-color: black;
+}
+
+.accordion .dropdown-icon .left {
+    transform: translateX(2px) rotate(45deg);
+}
+
+.accordion .dropdown-icon .right {
+    transform: translateX(-2px) rotate(-45deg);
+}
+
+.accordion .title {
+    flex: 1;
+}
+
+.accordion .dropdown-container {
+    display: flex;
+}
