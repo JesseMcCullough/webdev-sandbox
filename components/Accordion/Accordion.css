@@ -5,7 +5,7 @@
     cursor: pointer;
 }
 
-.accordion.active .collapse {
+.accordion.active > .collapse {
     grid-template-rows: 1fr;
 }
 
@@ -19,7 +19,7 @@
     overflow: hidden;
 }
 
-.accordion.active .dropdown-icon {
+.accordion.active > .dropdown-container .dropdown-icon {
     transform: rotate(180deg);
 }
 

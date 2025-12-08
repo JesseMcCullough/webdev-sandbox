@@ -16,7 +16,7 @@ import Accordion from "@/components/Accordion/Accordion";
 export default function Home() {
     return (
         <>
-            <Accordion title="1 - A question goes here?">
+            <Accordion title="1 - A question goes here?" name="1">
                 <p>
                     1 - Lorem ipsum yooo sit amet, consectetur adipiscing elit.
                     Nunc sem massa, convallis sed lectus eu, euismod vehicula
@@ -28,6 +28,70 @@ export default function Home() {
                     ultricies sit amet, rhoncus at enim. Sed justo erat,
                     venenatis id enim a, finibus faucibus purus.
                 </p>
+                <Accordion title="1.1 - A question goes here?" name="1.1">
+                    <p>
+                        1.1 - Lorem ipsum yooo sit amet, consectetur adipiscing
+                        elit. Nunc sem massa, convallis sed lectus eu, euismod
+                        vehicula libero. Ut posuere aliquam nibh, nec fermentum
+                        nisi luctus ac. Vestibulum quis libero est. Interdum et
+                        malesuada fames ac ante ipsum primis in faucibus.
+                        Vivamus justo quam, volutpat a vehicula a, placerat eget
+                        velit. Vivamus aliquet maximus ipsum ac ultrices. Cras
+                        risus nisi, rhoncus in ultricies sit amet, rhoncus at
+                        enim. Sed justo erat, venenatis id enim a, finibus
+                        faucibus purus.
+                    </p>
+                    <Accordion
+                        title="1.1.1 - A question goes here?"
+                        name="1.1.1"
+                    >
+                        <p>
+                            1.1 - Lorem ipsum yooo sit amet, consectetur
+                            adipiscing elit. Nunc sem massa, convallis sed
+                            lectus eu, euismod vehicula libero. Ut posuere
+                            aliquam nibh, nec fermentum nisi luctus ac.
+                            Vestibulum quis libero est. Interdum et malesuada
+                            fames ac ante ipsum primis in faucibus. Vivamus
+                            justo quam, volutpat a vehicula a, placerat eget
+                            velit. Vivamus aliquet maximus ipsum ac ultrices.
+                            Cras risus nisi, rhoncus in ultricies sit amet,
+                            rhoncus at enim. Sed justo erat, venenatis id enim
+                            a, finibus faucibus purus.
+                        </p>
+                    </Accordion>
+                    <Accordion
+                        title="1.1.2 - A question goes here?"
+                        name="1.1.2"
+                    >
+                        <p>
+                            1.1 - Lorem ipsum yooo sit amet, consectetur
+                            adipiscing elit. Nunc sem massa, convallis sed
+                            lectus eu, euismod vehicula libero. Ut posuere
+                            aliquam nibh, nec fermentum nisi luctus ac.
+                            Vestibulum quis libero est. Interdum et malesuada
+                            fames ac ante ipsum primis in faucibus. Vivamus
+                            justo quam, volutpat a vehicula a, placerat eget
+                            velit. Vivamus aliquet maximus ipsum ac ultrices.
+                            Cras risus nisi, rhoncus in ultricies sit amet,
+                            rhoncus at enim. Sed justo erat, venenatis id enim
+                            a, finibus faucibus purus.
+                        </p>
+                    </Accordion>
+                </Accordion>
+                <Accordion title="1.2 - A question goes here?" name="1.2">
+                    <p>
+                        1.2 - Lorem ipsum yooo sit amet, consectetur adipiscing
+                        elit. Nunc sem massa, convallis sed lectus eu, euismod
+                        vehicula libero. Ut posuere aliquam nibh, nec fermentum
+                        nisi luctus ac. Vestibulum quis libero est. Interdum et
+                        malesuada fames ac ante ipsum primis in faucibus.
+                        Vivamus justo quam, volutpat a vehicula a, placerat eget
+                        velit. Vivamus aliquet maximus ipsum ac ultrices. Cras
+                        risus nisi, rhoncus in ultricies sit amet, rhoncus at
+                        enim. Sed justo erat, venenatis id enim a, finibus
+                        faucibus purus.
+                    </p>
+                </Accordion>
             </Accordion>
             <Accordion title="2 - A question goes here?">
                 <p>
