@@ -1,0 +1,59 @@
+.form {
+    padding: 20px;
+    background-color: #e1e1e1;
+    width: max-content;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #333333;
+    padding: 0 20px;
+    font-size: 1em;
+}
+
+label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+    pointer-events: none;
+    transition: 0.2s;
+    outline: none;
+    background-color: transparent;
+}
+
+input:focus {
+    outline: none;
+}
+
+input:focus ~ label,
+input.has-value ~ label {
+    top: -10px;
+    font-size: 0.75em;
+}
+
+input.error {
+    border-color: red;
+}
+
+input.error ~ label {
+    color: red;
+}
+
+input.error:focus {
+    outline-color: red;
+}
+
+.error-message {
+    color: red;
+}

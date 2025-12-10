@@ -12,10 +12,39 @@ import banana from "../images/banana.png";
 import logo from "../images/logo.jpg";
 import peach from "../images/peach.png";
 import Accordion from "@/components/Accordion/Accordion";
+import { Form, Input, InputGroup } from "@/components/Form/Form";
 
 export default function Home() {
     return (
         <>
+            <Form>
+                <InputGroup>
+                    <Input
+                        name="first-name1"
+                        type="text"
+                        label="First Name"
+                        autocomplete={"given-name"}
+                    />
+                    <Input
+                        name="last-name1"
+                        type="text"
+                        label="Last Name"
+                        autocomplete={"family-name"}
+                    />
+                </InputGroup>
+                <Input
+                    name="first-name2"
+                    type="text"
+                    label="First Name"
+                    autocomplete={"given-name"}
+                />
+                <Input
+                    name="last-name2"
+                    type="text"
+                    label="Last Name"
+                    autocomplete={"family-name"}
+                />
+            </Form>
             <Accordion title="1 - A question goes here?" name="1">
                 <p>
                     1 - Lorem ipsum yooo sit amet, consectetur adipiscing elit.
